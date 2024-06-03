@@ -1,6 +1,6 @@
 """core module: SpotForecast"""
 
-import pandas as pd
+# import pandas as pd
 
 from .utils import flatten
 from .api.objects import (
@@ -46,44 +46,44 @@ class SpotForecasts:
         self.weather = weather.data
         self.sunlightTimes = sunlightTimes.data
 
-    def get_dataframe(self, attr="surf") -> pd.DataFrame:
-        """pandas dataframe of selected attribute
+    # def get_dataframe(self, attr="surf") -> pd.DataFrame:
+    #     """pandas dataframe of selected attribute
 
-        Use default to get the pandas dataframe of surf data,
-        or of the selected attribute `attr`:
-        - waves
-        - wind
-        - tides
-        - weather
-        - sunlightTimes
+    #     Use default to get the pandas dataframe of surf data,
+    #     or of the selected attribute `attr`:
+    #     - waves
+    #     - wind
+    #     - tides
+    #     - weather
+    #     - sunlightTimes
 
-        Args:
-            attr (str, optional): attribute to get dataframe from.
-                Defaults to "surf".
+    #     Args:
+    #         attr (str, optional): attribute to get dataframe from.
+    #             Defaults to "surf".
 
-        Raises:
-            ValueError: if attr is not a valid attribute
-        """
-        if attr == "surf":
-            # concat all dataframes
-            data = []
-            for attr in ["waves", "wind", "weather"]:
-                # excluding "sunlightTimes" and "tides" due to different timestamps
-                # TODO: include "surf" in `surf` output
-                data.append(
-                    pd.DataFrame(_flatten_objects(getattr(self, attr)))
-                    .set_index("timestamp_dt")
-                    .reset_index()
-                )
-            df = pd.concat(data, axis=1)
-            # remove duplicated columns
-            df = df.loc[:, ~df.columns.duplicated()]
-            return df
-        elif attr in ["waves", "wind", "tides", "weather", "sunlightTimes"]:
-            # return single
-            return pd.DataFrame(_flatten_objects(getattr(self, attr))).reset_index()
-        else:
-            raise ValueError(f"Attribute {attr} not supported. Use a valid attribute.")
+    #     Raises:
+    #         ValueError: if attr is not a valid attribute
+    #     """
+    #     if attr == "surf":
+    #         # concat all dataframes
+    #         data = []
+    #         for attr in ["waves", "wind", "weather"]:
+    #             # excluding "sunlightTimes" and "tides" due to different timestamps
+    #             # TODO: include "surf" in `surf` output
+    #             data.append(
+    #                 pd.DataFrame(_flatten_objects(getattr(self, attr)))
+    #                 .set_index("timestamp_dt")
+    #                 .reset_index()
+    #             )
+    #         df = pd.concat(data, axis=1)
+    #         # remove duplicated columns
+    #         df = df.loc[:, ~df.columns.duplicated()]
+    #         return df
+    #     elif attr in ["waves", "wind", "tides", "weather", "sunlightTimes"]:
+    #         # return single
+    #         return pd.DataFrame(_flatten_objects(getattr(self, attr))).reset_index()
+    #     else:
+    #         raise ValueError(f"Attribute {attr} not supported. Use a valid attribute.")
 
 
 def _flatten_objects(list_of_objects) -> list:

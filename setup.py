@@ -21,8 +21,8 @@ setup(
     tests_require=[],
     install_requires=[
         "requests",
-        "matplotlib",
-        "pandas",
+        # "matplotlib",
+        # "pandas",
     ],
     extras_require={
         "docs": [],

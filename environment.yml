@@ -8,8 +8,6 @@ dependencies:
   - ipykernel
 #pysurfline
   - requests
-  - pandas
-  - matplotlib
 #formatting and linting
   - black
   - flake8
